@@ -38,6 +38,8 @@ def scrape():
 
 	format(soup)
 
+	print '\nBuy from here: ' + url
+
 def format(soup):
 	print "Formating Data..."
 	results = []
@@ -62,9 +64,10 @@ def format(soup):
 	for i in range(len(cardTitles)):
 		currentString = cardTitles[i]
 		currentString = currentString.encode('ascii', 'ignore')
+		currentString = currentString + "; "
 		cardTitles2.append(currentString)
-		print currentString
-	print len(cardTitles2)
+		#print currentString
+	#print len(cardTitles2)
 
 
 	#------------PRICES-------------------------------------------------------
@@ -74,10 +77,12 @@ def format(soup):
 	#clean up the prices array
 	for i in range(len(cardPrices)):
 		currentString = cardPrices[i]
-		currentString = currentString.encode('ascii', 'ignore')
+
+
+		#currentString = currentString.encode('ascii', 'ignore')
 		cardPrices2.append(currentString)
-		print currentString
-	print len(cardPrices2)
+		#print currentString
+	#print len(cardPrices2)
 
 
 	#cardPrices = "\n".join(cardPrices)
@@ -98,8 +103,8 @@ def format(soup):
 				#results.remove(results[i])
 				sys.stdout.write(RED)
 				
-				cardStock.append('out of stock')
-				print ' @@@@@@@@ OUT OF STOCK :('
+				cardStock.append('; Out of Stock')
+				#print ' @@@@@@@@ OUT OF STOCK :('
 				#sys.stdout.write(GREEN)
 				#print cardTitle
 				sys.stdout.write(RED)
@@ -108,16 +113,37 @@ def format(soup):
 
 			if currentString[i:i+11]=="Add to cart":
 				sys.stdout.write(GREEN)
-				cardStock.append('out of stock')
-				print 'IN STOCK!!! GO BUY HERE:'
-				
+				cardStock.append('; IN STOCK!!!!!!!!!!!')
+				#print 'IN STOCK!!! GO BUY HERE:'
+				sys.stdout.write(GREEN)
 				#currentString = re.sub("[^{}]+".format(printable), "", currentString)
 				#print currentString
 			#Out of stock
 
 
 
-	print len(cardStock)
+	#print len(cardStock)
+
+	cardMerge = list(zip(cardTitles2, cardPrices2, cardStock))
+	cardMerge2 = []
+
+	for i in range(len(cardMerge)):
+		currentString = cardMerge[i]
+		str =  ''.join(currentString) 
+		#currentString = currentString.encode('ascii', 'ignore')
+		
+		#remove all new lines from current string
+		str = re.sub("\n", "", str) 
+		
+		#add sanitised string to new array
+		cardMerge2.append(str)
+
+	cardMerge2 = "\n".join(cardMerge2)
+
+
+
+	print cardMerge2
+
 
 	#results = "\n".join(results)
 	#print results
