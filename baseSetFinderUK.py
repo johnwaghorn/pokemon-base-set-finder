@@ -5,7 +5,7 @@ import sys
 import os
 import random
 import re
-from string import printable
+
 
 #colours just in case for terminal
 RED   = "\033[1;31m"  
@@ -35,13 +35,25 @@ def scrape():
 	req = requests.get(url, headers = headers)
 	data = req.text
 	soup = BeautifulSoup(data,'html.parser')
-
 	format(soup)
-
 	print '\nBuy from here: ' + url
+	#print "page one done"
+
+	urlEnumMax = 35
+	urlEnum = 2
+	i = 0
+	while i < urlEnumMax:
+		url2 =  "https://www.bigorbitcards.co.uk/pokemon/base-set/page-"+str(urlEnum)+"/"
+		req2 = requests.get(url2, headers = headers)
+		data2 = req2.text
+		soup2 = BeautifulSoup(data2,'html.parser')
+		urlEnum += 1
+		format(soup2)
+		print 'Buy from here: '+url2
+		i+=1
 
 def format(soup):
-	print "Formating Data..."
+	#print "Formating Data..."
 	results = []
 	cardTitles = []
 	cardTitles2 = []
@@ -49,7 +61,7 @@ def format(soup):
 	cardPrices2 = []
 	cardStock = []
 
-
+	sys.stdout.write(RED)
 	#All results in one array - messy
 	for div in soup.find_all('div', attrs={'class':'ty-product-list__content'}):
 		if len(div.text)>0:
@@ -101,21 +113,19 @@ def format(soup):
 
 			if currentString[i:i+12]=="Out of stock":
 				#results.remove(results[i])
-				sys.stdout.write(RED)
-				
+							
 				cardStock.append('; Out of Stock')
 				#print ' @@@@@@@@ OUT OF STOCK :('
 				#sys.stdout.write(GREEN)
 				#print cardTitle
-				sys.stdout.write(RED)
+				
 				currentString = currentString.rstrip()
 				#print currentString
 
 			if currentString[i:i+11]=="Add to cart":
-				sys.stdout.write(GREEN)
 				cardStock.append('; IN STOCK!!!!!!!!!!!')
 				#print 'IN STOCK!!! GO BUY HERE:'
-				sys.stdout.write(GREEN)
+				
 				#currentString = re.sub("[^{}]+".format(printable), "", currentString)
 				#print currentString
 			#Out of stock
