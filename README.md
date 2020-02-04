@@ -1,4 +1,12 @@
-> This script simply finds available in stock base set collectible pokemon cards for purchase in the UK
+> Pokemon Card Base Set Finder UK
+
+This script simply finds available in stock base set collectible pokemon cards for purchase in the UK
+
+> Installation 
+
+Runs on Python 2 and 3
+
+Make sure you have installed the required libraries e.g. 'sudo pip(3) install beautifulsoup4' or 'requests'
 
 > Example output might look like this: <br/> 
 

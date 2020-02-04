@@ -24,22 +24,22 @@ headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleW
 try:
 	from bs4 import BeautifulSoup
 	import requests
-	print "imports complete"
+	print("imports complete")
 except ImportError:
-	print "BeautifulSoup is not installed. Try 'sudo pip install beautifulsoup4'"
+	print("BeautifulSoup is not installed. Try 'sudo pip(3) install beautifulsoup4' or 'requests'")
 
 def scrape():
-	print "\n***Looking around for available cards..."
+	print("\n***Looking around for available cards... \n")
 
 	url="https://www.bigorbitcards.co.uk/pokemon/base-set/"
 	req = requests.get(url, headers = headers)
 	data = req.text
 	soup = BeautifulSoup(data,'html.parser')
 	format(soup)
-	print '\nBuy from here: ' + url
+	print('\nBuy from here: ' + url +'\n')
 	#print "page one done"
 
-	urlEnumMax = 35
+	urlEnumMax = 34
 	urlEnum = 2
 	i = 0
 	while i < urlEnumMax:
@@ -49,7 +49,7 @@ def scrape():
 		soup2 = BeautifulSoup(data2,'html.parser')
 		urlEnum += 1
 		format(soup2)
-		print 'Buy from here: '+url2
+		print('\nBuy from here: '+url2 +'\n')
 		i+=1
 
 def format(soup):
@@ -75,11 +75,11 @@ def format(soup):
 	#clean up the title array
 	for i in range(len(cardTitles)):
 		currentString = cardTitles[i]
-		currentString = currentString.encode('ascii', 'ignore')
+		currentString = currentString.encode().decode()
 		currentString = currentString + "; "
 		cardTitles2.append(currentString)
 		#print currentString
-	#print len(cardTitles2)
+	
 
 
 	#------------PRICES-------------------------------------------------------
@@ -96,6 +96,8 @@ def format(soup):
 		#print currentString
 	#print len(cardPrices2)
 
+	
+
 
 	#cardPrices = "\n".join(cardPrices)
 	
@@ -103,7 +105,7 @@ def format(soup):
 	#----------STOCK-----------------------------------------------------------
 	for i in range(len(results)):
 		currentString = results[i]
-		currentString = currentString.encode('ascii', 'ignore')
+		#currentString = currentString.encode('ascii', 'ignore')
 		#cardTitle = soup.find('a', attrs={'class':'product-title'})
 		#cardTitle = cardTitle.text
 		for i in range(len(currentString)):
@@ -113,7 +115,7 @@ def format(soup):
 
 			if currentString[i:i+12]=="Out of stock":
 				#results.remove(results[i])
-							
+				
 				cardStock.append('; Out of Stock')
 				#print ' @@@@@@@@ OUT OF STOCK :('
 				#sys.stdout.write(GREEN)
@@ -152,7 +154,7 @@ def format(soup):
 
 
 
-	print cardMerge2
+	print(cardMerge2)
 
 
 	#results = "\n".join(results)
