@@ -5,6 +5,7 @@ import sys
 import os
 import random
 import re
+import urllib
 
 
 #colours just in case for terminal
@@ -24,6 +25,7 @@ headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleW
 try:
 	from bs4 import BeautifulSoup
 	import requests
+
 	print("imports complete")
 except ImportError:
 	print("BeautifulSoup is not installed. Try 'sudo pip(3) install beautifulsoup4' or 'requests'")
@@ -39,11 +41,18 @@ def scrape():
 	print('\nBuy from here: ' + url +'\n')
 	#print "page one done"
 
-	urlEnumMax = 34
+	notUrlEnumMax = True
 	urlEnum = 2
 	i = 0
-	while i < urlEnumMax:
+	while notUrlEnumMax:
 		url2 =  "https://www.bigorbitcards.co.uk/pokemon/base-set/page-"+str(urlEnum)+"/"
+		try: # need to open with try
+			page = urllib.request.urlopen(url2)
+		except urllib.error.HTTPError as e:
+			if e.getcode() == 404: # check the return code
+				notUrlEnumMax = False
+				sys.exit("404 error or FINISHED")
+		
 		req2 = requests.get(url2, headers = headers)
 		data2 = req2.text
 		soup2 = BeautifulSoup(data2,'html.parser')
