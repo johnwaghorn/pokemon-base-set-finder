@@ -22,56 +22,53 @@ sys.stdout.write(RED)
 
 def get_data():
     print("\nStarting... \n")
-    url = "https://www.bigorbitcards.co.uk/pokemon/base-set/"
-    req = requests.get(url, headers=HEADERS)
-    data = req.text
-    soup = BeautifulSoup(data, "html.parser")
-    process_data(soup)
-    print(f"\nBuy from here:{url}\n")
+    base_url = "https://www.bigorbitcards.co.uk/pokemon/base-set/"
+    parsed_html = get_and_parse_page_data(base_url)
+    process_data(parsed_html)
+    print(f"\nBuy from here:{base_url}\n")
 
-    notUrlEnumMax = True
-    urlEnum = 2
+    url_available = True
+    page_number = 2
     i = 0
-    while notUrlEnumMax:
-        url2 = (
-            "https://www.bigorbitcards.co.uk/pokemon/base-set/page-"
-            + str(urlEnum)
-            + "/"
-        )
+    while url_available:
+        page_url = f"{base_url}page-{str(page_number)}/"
         try:
-            urllib.request.urlopen(url2)
+            urllib.request.urlopen(page_url)
         except urllib.error.HTTPError as e:
             if e.getcode() == 404:
-                notUrlEnumMax = False
+                url_available = False
                 sys.exit("404 error or FINISHED")
-
-        req2 = requests.get(url2, headers=HEADERS)
-        data2 = req2.text
-        soup2 = BeautifulSoup(data2, "html.parser")
-        urlEnum += 1
-        process_data(soup2)
-        print(f"\nBuy from here: {url2}\n")
+        page_soup = get_and_parse_page_data(page_url)
+        page_number += 1
+        process_data(page_soup)
+        print(f"\nBuy from here: {page_url}\n")
         i += 1
 
 
-def process_data(soup):
-    card_titles: list = get_card_titles(soup)
-    card_info: list = get_card_price_and_stock(soup)
+def get_and_parse_page_data(url) -> BeautifulSoup:
+    request = requests.get(url, headers=HEADERS)
+    data = request.text
+    return BeautifulSoup(data, "html.parser")
+
+
+def process_data(parsed_html):
+    card_titles: list = get_card_titles(parsed_html)
+    card_info: list = get_card_price_and_stock(parsed_html)
     output_data(card_titles, card_info)
 
 
-def get_card_titles(soup) -> list:
+def get_card_titles(parsed_html) -> list:
     card_titles = []
-    for title in soup.find_all("a", attrs={"class": "product-title"}):
+    for title in parsed_html.find_all("a", attrs={"class": "product-title"}):
         if len(title.text) > 0:
             card_titles.append(title.text)
     card_titles = sorted(set(card_titles))
     return card_titles
 
 
-def get_card_price_and_stock(soup) -> list:
+def get_card_price_and_stock(parsed_html) -> list:
     card_info = []
-    for info in soup.find_all(
+    for info in parsed_html.find_all(
         "div", attrs={"class": "ty-control-group product-list-field"}
     ):
         if len(info.text) > 0:
@@ -87,7 +84,7 @@ def output_data(card_titles: list, card_info: list) -> None:
         for title, info in zip(card_titles, card_info):
             print(f"{title} -- {info}")
     else:
-        raise (Exception)
+        raise Exception("Mismatch in card_titles and card_info list sizes")
 
 
 if __name__ == "__main__":
