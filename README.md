@@ -3,30 +3,52 @@
 This script simply finds available in Pokemon card collectible base set stock purchase in the UK
 
 ## Requirements
-- Python 3.9
+
+- Python 3.12
 - Pipenv
 
-## Installation 
-
-pipenv install
-
-## Example output might look like this: <br/> 
+## Installation Dependencies
 
 ```shell
-Starting... 
+python -m pipenv install
+```
 
-Alakazam (Holo) (1st Edition) -- Near Mint0 - item £164.95Out of stockLight Play0 - item £139.95Out of stockModerate Play0 - item £99.95Out of stock
-Alakazam (Holo) (Shadowless) -- Near Mint0 - item £84.95Out of stockLight Play0 - item £71.95Out of stockModerate Play0 - item £51.95Out of stock
-Alakazam (Holo) (UK Print) -- Near Mint0 - item £35.95Out of stockLight Play0 - item £30.95Out of stockModerate Play0 - item £21.95Out of stock
-Blastoise (Holo) (1st Edition) -- Near Mint0 - item £599.95Out of stockLight Play0 - item £499.95Out of stockModerate Play0 - item £359.95Out of stock
-Blastoise (Holo) (Shadowless) -- Near Mint0 - item £329.95Out of stockLight Play0 - item £279.95Out of stockModerate Play0 - item £199.95Out of stock
-Blastoise (Holo) (UK Print) -- Near Mint0 - item £134.95Out of stockLight Play0 - item £114.95Out of stockModerate Play0 - item £81.95Out of stock
-Chansey (Holo) (1st Edition) -- Near Mint0 - item £99.95Out of stockLight Play0 - item £84.95Out of stockModerate Play0 - item £59.95Out of stock
-Chansey (Holo) (Shadowless) -- Near Mint0 - item £59.95Out of stockLight Play0 - item £51.95Out of stockModerate Play0 - item £35.95Out of stock
-Chansey (Holo) (UK Print) -- Near Mint0 - item £22.95Out of stockLight Play0 - item £19.45Out of stockModerate Play0 - item £13.75Out of stock
-Charizard (Holo) (1st Edition) -- Near Mint0 - item £1999.95Out of stockLight Play0 - item £1699.95Out of stockModerate Play0 - item £1199.95Out of stock
-Charizard (Holo) (Shadowless) -- Near Mint0 - item £1149.95Out of stockLight Play0 - item £979.95Out of stockModerate Play0 - item £679.95Out of stock
-Charizard (Holo) (UK Print) -- Near Mint0 - item £409.95Out of stockLight Play0 - item £349.95Out of stockModerate Play0 - item £249.95Out of stock
+## Run
 
-Buy from here: https://www.url.com
+```shell
+python ./main
+```
+
+## Example output
+
+```shell
+Starting to check BigOrbitCards...
+
+
+Checking url https://www.bigorbitcards.co.uk/pokemon/base-set/page-1/?resultsPerPage=24/...
+
+Alakazam (Holo) (1st Edition): Out of Stock
+Alakazam (Holo) (Base Set 2000): Out of Stock
+Alakazam (Holo) (Shadowless): Out of Stock
+Alakazam (Holo) (Unlimited Edition): ['Light Play ~ 2 in Stock ~ £27.95']
+Blastoise (Holo) (1st Edition): Out of Stock
+Blastoise (Holo) (Base Set 2000): Out of Stock
+Blastoise (Holo) (Shadowless): Out of Stock
+Blastoise (Holo) (Unlimited Edition): ['Light Play ~ 1 in Stock ~ £99.95', 'Moderate Play ~ 1 in Stock ~ £71.95', 'Heavy Play ~ 2 in Stock ~ £41.95']
+Chansey (Holo) (1st Edition): Out of Stock
+Chansey (Holo) (Base Set 2000): Out of Stock
+Chansey (Holo) (Shadowless): Out of Stock
+Chansey (Holo) (Unlimited Edition): ['Moderate Play ~ 1 in Stock ~ £11.95']
+Charizard (Holo) (1st Edition): Out of Stock
+Charizard (Holo) (Base Set 2000): Out of Stock
+Charizard (Holo) (Shadowless): Out of Stock
+Charizard (Holo) (Unlimited Edition): ['Light Play ~ 2 in Stock ~ £249.95', 'Moderate Play ~ 4 in Stock ~ £179.95', 'Heavy Play ~ 1 in Stock ~ £104.95']
+Clefairy (Holo) (1st Edition): Out of Stock
+Clefairy (Holo) (Base Set 2000): ['Light Play ~ 1 in Stock ~ £13.45']
+Clefairy (Holo) (Shadowless): Out of Stock
+Clefairy (Holo) (Unlimited Edition): Out of Stock
+Gyarados (Holo) (1st Edition): Out of Stock
+Gyarados (Holo) (Base Set 2000): Out of Stock
+Gyarados (Holo) (Shadowless): Out of Stock
+Gyarados (Holo) (Unlimited Edition): ['Moderate Play ~ 1 in Stock ~ £11.95', 'Heavy Play ~ 1 in Stock ~ £6.95']
 ```
