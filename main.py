@@ -1,4 +1,5 @@
 import sys
+import argparse
 from bigcardorbit import check_bigcardorbit
 
 RED = "\033[1;31m"
@@ -14,8 +15,15 @@ sys.stdout.write(RED)
 
 
 def main() -> None:
+    parser = argparse.ArgumentParser(description="Process flags")
+    parser.add_argument(
+        "--show-out-of-stock", action="store_true", help="Show out-of-stock items"
+    )
+    args = parser.parse_args()
+    show_out_of_stock = args.show_out_of_stock
+
     print("\nStarting to check BigOrbitCards... \n")
-    check_bigcardorbit()
+    check_bigcardorbit(show_out_of_stock)
 
 
 if __name__ == "__main__":
